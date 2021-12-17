@@ -1,0 +1,24 @@
+{
+    "name": "VisualPinball.Unity.VisualScripting.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Unity.VisualScripting.Core",
+        "Unity.VisualScripting.Core.Editor",
+        "Unity.VisualScripting.Flow",
+        "Unity.VisualScripting.Flow.Editor",
+        "VisualPinball.Unity.VisualScripting.Runtime",
+        "VisualPinball.Unity",
+        "VisualPinball.Engine"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
