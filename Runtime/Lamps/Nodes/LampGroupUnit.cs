@@ -48,39 +48,32 @@ namespace VisualPinball.Unity.VisualScripting
 
         private ControlOutput Process(Flow flow, bool invert = false)
         {
-            if (_tableApi == null)
-            {
+            if (_tableApi == null) {
                 _tableApi = UnityEngine.Object.FindObjectOfType<Player>().TableApi;
             }
 
             // GetValue throws an exception because they are not basic types
 
-            try
-            {
-                foreach (var lightGroupComponent in flow.GetValue<List<LightGroupComponent>>(offLightGroups))
-                {
+            try {
+                foreach (var lightGroupComponent in flow.GetValue<List<LightGroupComponent>>(offLightGroups)) {
                     EnableLightGroup(lightGroupComponent, invert);
                 }
             }
             catch (Exception) { };
 
-            try
-            {
-                foreach (var lightGroupComponent in flow.GetValue<List<LightGroupComponent>>(onLightGroups))
-                {
+            try {
+                foreach (var lightGroupComponent in flow.GetValue<List<LightGroupComponent>>(onLightGroups)) {
                     EnableLightGroup(lightGroupComponent, !invert);
                 }
             }
             catch (Exception) { };
 
-            try
-            {
+            try {
                 EnableLightGroup(flow.GetValue<LightGroupComponent>(offLightGroup), invert);
             }
             catch (Exception) { };
 
-            try
-            {
+            try {
                 EnableLightGroup(flow.GetValue<LightGroupComponent>(onLightGroup), !invert);
             }
             catch (Exception) { };
@@ -90,10 +83,8 @@ namespace VisualPinball.Unity.VisualScripting
 
         private void EnableLightGroup(LightGroupComponent lightGroupComponent, bool enable)
         {
-            foreach (var light in lightGroupComponent.Lights.SelectMany(l => l.GetComponentsInChildren<LightComponent>()))
-            {
-                var lightState = _tableApi.Light(light);
-                lightState.State = enable ? 1 : 0;
+            foreach (var light in lightGroupComponent.Lights.SelectMany(l => l.GetComponentsInChildren<LightComponent>())) {
+                _tableApi.Light(light).State = enable ? 1 : 0;
             }
         }
     }

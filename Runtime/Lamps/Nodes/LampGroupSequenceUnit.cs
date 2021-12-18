@@ -15,36 +15,34 @@ namespace VisualPinball.Unity.VisualScripting
         public ValueInput lightGroup;
 
         [DoNotSerialize]
+        [PortLabelHidden]
         public ValueInput maxLights;
 
         [DoNotSerialize]
         public ControlOutput outputTrigger;
 
         private TableApi _tableApi;
-        private int _currentIndex;
+        private int _currentIndex = 0;
 
         protected override void Definition()
         {
             inputTrigger = ControlInput("In", (flow) => Process(flow));
 
             lightGroup = ValueInput<LightGroupComponent>(nameof(lightGroup));
-            maxLights = ValueInput<int>(nameof(maxLights));
+            maxLights = ValueInput<int>(nameof(maxLights), 1);
 
             outputTrigger = ControlOutput("");
         }
 
         private ControlOutput Process(Flow flow, bool invert = false)
         {
-            
-            if (_tableApi == null)
-            {
+            if (_tableApi == null) {
                 _tableApi = UnityEngine.Object.FindObjectOfType<Player>().TableApi;
             }
 
             // GetValue throws an exception because they are not basic types
 
-            try
-            {
+            try {
                 EnableLightGroup(flow.GetValue<LightGroupComponent>(lightGroup), flow.GetValue<int>(maxLights));
             }
             catch (Exception) { };
@@ -54,35 +52,14 @@ namespace VisualPinball.Unity.VisualScripting
 
         private void EnableLightGroup(LightGroupComponent lightGroupComponent, int maxLights)
         {
-            int index = 0;
-            int count = 0;
+            var totalLights = lightGroupComponent.Lights.Count();
 
-            bool enabled = false;
-   
-            var lights = lightGroupComponent.Lights.SelectMany(l => l.GetComponentsInChildren<LightComponent>());
-
-            foreach (var light in lights)
-            {
-                if (index == _currentIndex)
-                {
-                    enabled = true;
-                }
-
-                if (enabled && ++count > maxLights)
-                {
-                    enabled = false;
-                }
-
-                var lightState = _tableApi.Light(light);
-                lightState.State = enabled ? 1 : 0;
-
-                index++;
+            for (var index = 0; index < totalLights; index++ ) { 
+                _tableApi.Light(lightGroupComponent.Lights[index].GetComponentInChildren<LightComponent>()).State =
+                    (index >= (_currentIndex * maxLights) && index < ((_currentIndex + 1) * maxLights)) ? 1 : 0;
             }
 
-            _currentIndex += maxLights;
-
-            if (_currentIndex > lights.Count())
-            {
+            if (++_currentIndex >= totalLights / maxLights) {
                 _currentIndex = 0;
             }
         }

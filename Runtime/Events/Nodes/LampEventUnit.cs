@@ -2,11 +2,6 @@
 
 namespace VisualPinball.Unity.VisualScripting
 {
-    public static class EventNames
-    {
-        public static string LampEvent = "LampEvent";
-    }
-
     [UnitTitle("On Lamp Event")]
     [UnitCategory("Events\\Visual Pinball")]
     public sealed class LampEventUnit : EventUnit<LampEventArgs>
