@@ -20,9 +20,7 @@ namespace VisualPinball.Unity.VisualScripting
 
         public override Inspector GetPortInspector(IUnitPort port, Metadata metadata)
         {
-            if (port == unit.id)
-            {
-                // This feels so hacky. The real holy grail here would be to support attribute decorators like Unity does.
+            if (port == unit.id) {
                 InspectorProvider.instance.Renew(ref lampIdInspector, metadata, lampIdInspectorConstructor);
 
                 return lampIdInspector;
@@ -33,18 +31,15 @@ namespace VisualPinball.Unity.VisualScripting
 
         private IEnumerable<string> GetNameSuggestions()
         {
-            List<string> list = new List<string>();
+            var list = new List<string>();
 
             var tableComponent = TableSelector.Instance.SelectedTable;
 
-            if (tableComponent != null)
-            {
+            if (tableComponent != null) {
                 var gle = tableComponent.gameObject.GetComponent<IGamelogicEngine>();
 
-                if (gle != null)
-                {
-                    foreach (var lamp in gle.AvailableLamps)
-                    {
+                if (gle != null) {
+                    foreach (var lamp in gle.AvailableLamps) {
                         list.Add(lamp.Id);
                     }
                 }

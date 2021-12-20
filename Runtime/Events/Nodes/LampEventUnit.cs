@@ -11,9 +11,11 @@ namespace VisualPinball.Unity.VisualScripting
         public ValueInput id { get; private set; }
 
         [DoNotSerialize]
+        [PortLabelHidden]
         public ValueOutput value { get; private set; }
 
         [DoNotSerialize]
+        [PortLabelHidden]
         public ValueOutput enabled { get; private set; }
 
         protected override bool register => true;
