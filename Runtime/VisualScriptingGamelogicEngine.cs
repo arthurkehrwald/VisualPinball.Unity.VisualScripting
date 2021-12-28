@@ -1,13 +1,22 @@
+// Visual Pinball Engine
+// Copyright (C) 2021 freezy and VPE Team
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <https://www.gnu.org/licenses/>.
+
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using NLog;
 using UnityEngine;
 using VisualPinball.Engine.Game.Engines;
-using VisualPinball.Unity;
-using Logger = NLog.Logger;
 
 namespace VisualPinball.Unity.VisualScripting
 {
@@ -15,28 +24,33 @@ namespace VisualPinball.Unity.VisualScripting
 	{
 		public string Name { get; } = "Visual Scripting Gamelogic Engine";
 
-        public GamelogicEngineSwitch[] AvailableSwitches => new GamelogicEngineSwitch[0];
+		[Tooltip("The switches that are exposed in the Visual Scripting nodes.")]
+		public GamelogicEngineSwitch[] Switches;
+		public GamelogicEngineLamp[] Lamps;
+		public GamelogicEngineCoil[] Coils;
+		public GamelogicEngineWire[] Wires;
 
-        public GamelogicEngineLamp[] AvailableLamps => new GamelogicEngineLamp[0];
+		public GamelogicEngineSwitch[] AvailableSwitches => Switches;
 
-        public GamelogicEngineCoil[] AvailableCoils => new GamelogicEngineCoil[0];
+		public GamelogicEngineLamp[] AvailableLamps => Lamps;
 
-        public GamelogicEngineWire[] AvailableWires => new GamelogicEngineWire[0];
+		public GamelogicEngineCoil[] AvailableCoils => Coils;
 
-        public event EventHandler<AvailableDisplays> OnDisplaysAvailable;
-        public event EventHandler<DisplayFrameData> OnDisplayFrame;
-        public event EventHandler<LampEventArgs> OnLampChanged;
-        public event EventHandler<LampsEventArgs> OnLampsChanged;
-        public event EventHandler<LampColorEventArgs> OnLampColorChanged;
-        public event EventHandler<CoilEventArgs> OnCoilChanged;
+		public GamelogicEngineWire[] AvailableWires => Wires;
 
-        public void OnInit(Player player, TableApi tableApi, BallManager ballManager)
-        {
-      
-        }
+		public event EventHandler<AvailableDisplays> OnDisplaysAvailable;
+		public event EventHandler<DisplayFrameData> OnDisplayFrame;
+		public event EventHandler<LampEventArgs> OnLampChanged;
+		public event EventHandler<LampsEventArgs> OnLampsChanged;
+		public event EventHandler<LampColorEventArgs> OnLampColorChanged;
+		public event EventHandler<CoilEventArgs> OnCoilChanged;
 
-        public void Switch(string id, bool isClosed)
-        {
-        }
-    }
+		public void OnInit(Player player, TableApi tableApi, BallManager ballManager)
+		{
+		}
+
+		public void Switch(string id, bool isClosed)
+		{
+		}
+	}
 }
