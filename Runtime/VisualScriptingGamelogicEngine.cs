@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -14,13 +15,13 @@ namespace VisualPinball.Unity.VisualScripting
 	{
 		public string Name { get; } = "Visual Scripting Gamelogic Engine";
 
-        public GamelogicEngineSwitch[] AvailableSwitches => throw new NotImplementedException();
+        public GamelogicEngineSwitch[] AvailableSwitches => new GamelogicEngineSwitch[0];
 
-        public GamelogicEngineLamp[] AvailableLamps => throw new NotImplementedException();
+        public GamelogicEngineLamp[] AvailableLamps => new GamelogicEngineLamp[0];
 
-        public GamelogicEngineCoil[] AvailableCoils => throw new NotImplementedException();
+        public GamelogicEngineCoil[] AvailableCoils => new GamelogicEngineCoil[0];
 
-        public GamelogicEngineWire[] AvailableWires => throw new NotImplementedException();
+        public GamelogicEngineWire[] AvailableWires => new GamelogicEngineWire[0];
 
         public event EventHandler<AvailableDisplays> OnDisplaysAvailable;
         public event EventHandler<DisplayFrameData> OnDisplayFrame;
@@ -31,12 +32,11 @@ namespace VisualPinball.Unity.VisualScripting
 
         public void OnInit(Player player, TableApi tableApi, BallManager ballManager)
         {
-            throw new NotImplementedException();
+      
         }
 
         public void Switch(string id, bool isClosed)
         {
-            throw new NotImplementedException();
         }
     }
 }
