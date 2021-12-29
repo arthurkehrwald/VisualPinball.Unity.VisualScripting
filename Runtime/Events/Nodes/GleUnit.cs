@@ -19,9 +19,20 @@ using Unity.VisualScripting;
 
 namespace VisualPinball.Unity.VisualScripting
 {
-	public abstract class GleEventUnit<TArgs> : EventUnit<TArgs>
+	public abstract class GleEventUnit<TArgs> : EventUnit<TArgs>, IGleUnit
 	{
 		[DoNotSerialize]
-		public readonly List<string> Errors = new();
+		public List<string> Errors { get; } = new();
+	}
+
+	public abstract class GleUnit : Unit, IGleUnit
+	{
+		[DoNotSerialize]
+		public List<string> Errors { get; } = new();
+	}
+
+	public interface IGleUnit
+	{
+		List<string> Errors { get; }
 	}
 }

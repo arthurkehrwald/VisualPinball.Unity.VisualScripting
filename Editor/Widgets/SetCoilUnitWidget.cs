@@ -21,23 +21,22 @@ using Unity.VisualScripting;
 
 namespace VisualPinball.Unity.VisualScripting
 {
-	[Widget(typeof(SwitchEventUnit))]
-	public sealed class SwitchEventUnitWidget : GleUnitWidget<SwitchEventUnit>
+	[Widget(typeof(SetCoilUnit))]
+	public sealed class SetCoilUnitWidget : GleUnitWidget<SetCoilUnit>
 	{
-		private VariableNameInspector _lampIdInspector;
-		private readonly Func<Metadata, VariableNameInspector> _switchIdInspectorConstructor;
+		private VariableNameInspector _coilIdInspector;
+		private readonly Func<Metadata, VariableNameInspector> _setCoilInspectorConstructor;
 
-		public SwitchEventUnitWidget(FlowCanvas canvas, SwitchEventUnit unit) : base(canvas, unit)
+		public SetCoilUnitWidget(FlowCanvas canvas, SetCoilUnit unit) : base(canvas, unit)
 		{
-			_switchIdInspectorConstructor = meta => new VariableNameInspector(meta, GetNameSuggestions);
+			_setCoilInspectorConstructor = meta => new VariableNameInspector(meta, GetNameSuggestions);
 		}
 
 		public override Inspector GetPortInspector(IUnitPort port, Metadata meta)
 		{
 			if (port == unit.id) {
-				InspectorProvider.instance.Renew(ref _lampIdInspector, meta, _switchIdInspectorConstructor);
-
-				return _lampIdInspector;
+				InspectorProvider.instance.Renew(ref _coilIdInspector, meta, _setCoilInspectorConstructor);
+				return _coilIdInspector;
 			}
 
 			return base.GetPortInspector(port, meta);
@@ -49,7 +48,7 @@ namespace VisualPinball.Unity.VisualScripting
 				return new List<string>();
 			}
 			var gle = Gle;
-			return gle == null ? new List<string>() : gle.AvailableSwitches.Select(lamp => lamp.Id).ToList();
+			return gle == null ? new List<string>() : gle.AvailableCoils.Select(coil => coil.Id).ToList();
 		}
 	}
 }
