@@ -15,13 +15,14 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using System;
-using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
 using VisualPinball.Engine.Game.Engines;
 
 namespace VisualPinball.Unity.VisualScripting
 {
+	[DisallowMultipleComponent]
+	[AddComponentMenu("Visual Pinball/Game Logic Engine/Visual Scripting Game Logic")]
 	public class VisualScriptingGamelogicEngine : MonoBehaviour, IGamelogicEngine
 	{
 		public string Name { get; } = "Visual Scripting Gamelogic Engine";
