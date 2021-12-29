@@ -24,7 +24,6 @@ namespace VisualPinball.Unity.VisualScripting
 	[Widget(typeof(SwitchEventUnit))]
 	public sealed class SwitchEventUnitWidget : UnitWidget<SwitchEventUnit>
 	{
-
 		protected override NodeColorMix baseColor => GleAvailable ? NodeColorMix.TealReadable : new NodeColorMix { red = 1f, green = 0f, blue = 0f };
 		private bool GameObjectAvailable => reference != null && reference.gameObject != null;
 		private bool GleAvailable => GameObjectAvailable && Gle != null;
@@ -63,7 +62,6 @@ namespace VisualPinball.Unity.VisualScripting
 			}
 			var gle = Gle;
 			return gle == null ? new List<string>() : gle.AvailableSwitches.Select(lamp => lamp.Id).ToList();
-
 		}
 	}
 }

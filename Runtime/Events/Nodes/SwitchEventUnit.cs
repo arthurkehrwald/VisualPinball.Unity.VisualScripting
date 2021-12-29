@@ -14,16 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEngine;
 
 namespace VisualPinball.Unity.VisualScripting
 {
 	[UnitTitle("On Switch Changed")]
 	[UnitCategory("Events\\Visual Pinball")]
-	public class SwitchEventUnit : EventUnit<SwitchEventArgs>
+	public class SwitchEventUnit : GleEventUnit<SwitchEventArgs>
 	{
 		[DoNotSerialize]
 		[PortLabel("Switch ID")]
@@ -32,11 +29,6 @@ namespace VisualPinball.Unity.VisualScripting
 		[DoNotSerialize]
 		[PortLabel("Is Enabled")]
 		public ValueOutput enabled { get; private set; }
-
-		public VisualScriptingGamelogicEngine gle { get; private set; }
-
-		[DoNotSerialize]
-		public readonly List<string> Errors = new();
 
 		protected override bool register => true;
 
@@ -52,12 +44,6 @@ namespace VisualPinball.Unity.VisualScripting
 
 			id = ValueInput(nameof(id), string.Empty);
 			enabled = ValueOutput<bool>(nameof(enabled));
-		}
-
-		public override void Instantiate(GraphReference instance)
-		{
-			base.Instantiate(instance);
-			Debug.Log("Switch event instantiated.");
 		}
 
 		protected override void AssignArguments(Flow flow, SwitchEventArgs args)
