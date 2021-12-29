@@ -15,6 +15,8 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using System;
+using System.Xml;
+using Unity.VisualScripting;
 using UnityEngine;
 using VisualPinball.Engine.Game.Engines;
 
@@ -49,9 +51,14 @@ namespace VisualPinball.Unity.VisualScripting
 		{
 		}
 
+		public void SetCoil(string id, bool isEnabled)
+		{
+			OnCoilChanged?.Invoke(this, new CoilEventArgs(id, isEnabled));
+		}
+
 		public void Switch(string id, bool isClosed)
 		{
-
+			EventBus.Trigger(EventNames.SwitchEvent, new VisualScriptingScriptEvent(id, isClosed));
 		}
 	}
 }

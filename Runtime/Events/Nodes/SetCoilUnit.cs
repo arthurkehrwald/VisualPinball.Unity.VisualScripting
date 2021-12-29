@@ -15,6 +15,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace VisualPinball.Unity.VisualScripting
 {
@@ -24,27 +25,49 @@ namespace VisualPinball.Unity.VisualScripting
 	{
 		[DoNotSerialize]
 		[PortLabelHidden]
-		public ControlInput inputTrigger;
+		public ControlInput InputTrigger;
 
 		[DoNotSerialize]
 		[PortLabelHidden]
-		public ControlOutput outputTrigger;
+		public ControlOutput OutputTrigger;
 
 		[DoNotSerialize]
 		[PortLabel("Coil ID")]
-		public ValueInput id { get; private set; }
+		public ValueInput Id { get; private set; }
 
 		[DoNotSerialize]
 		[PortLabel("Value")]
-		public ValueInput enabled { get; private set; }
+		public ValueInput IsEnabled { get; private set; }
 
 		protected override void Definition()
 		{
-			inputTrigger = ControlInput(nameof(inputTrigger), _ => outputTrigger);
-			outputTrigger = ControlOutput(nameof(outputTrigger));
+			InputTrigger = ControlInput(nameof(InputTrigger), Process);
+			OutputTrigger = ControlOutput(nameof(OutputTrigger));
 
-			id = ValueInput<string>(nameof(id), string.Empty);
-			enabled = ValueInput<bool>(nameof(enabled), false);
+			Id = ValueInput<string>(nameof(Id), string.Empty);
+			IsEnabled = ValueInput<bool>(nameof(IsEnabled), false);
+
+			Requirement(Id, InputTrigger);
+			Succession(InputTrigger, OutputTrigger);
 		}
+		private ControlOutput Process(Flow flow)
+		{
+			var gle = flow.stack.gameObject.GetComponentInParent<VisualScriptingGamelogicEngine>();
+
+			if (gle != null) {
+
+				var id = flow.GetValue<string>(Id);
+				var isEnabled = flow.GetValue<bool>(IsEnabled);
+
+				gle.SetCoil(id, isEnabled);
+
+			} else {
+				Debug.LogError("Cannot find GLE.");
+			}
+
+			return OutputTrigger;
+		}
+
+
 	}
 }
