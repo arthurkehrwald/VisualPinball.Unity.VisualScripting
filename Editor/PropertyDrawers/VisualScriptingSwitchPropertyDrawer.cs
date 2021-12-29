@@ -14,24 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-// ReSharper disable InconsistentNaming
+using UnityEditor;
+using VisualPinball.Unity.VisualScripting;
 
-using System;
-using VisualPinball.Engine.Game.Engines;
-
-namespace VisualPinball.Unity.VisualScripting
+namespace Editor.PropertyDrawers
 {
-	[Serializable]
-	public class VisualScriptingSwitch : GamelogicEngineSwitch
+	[CustomPropertyDrawer(typeof(VisualScriptingSwitch))]
+	public class VisualScriptingSwitchPropertyDrawer : VisualScriptingDeviceItemPropertyDrawer
 	{
-		public string Name;
-		public string Desc;
-
-		public override string Id => Name;
-		public override string Description => Desc;
-
-		public VisualScriptingSwitch() : base(string.Empty)
-		{
-		}
+		public override string NameName => nameof(VisualScriptingSwitch.Name);
+		public override string DescName => nameof(VisualScriptingSwitch.Desc);
 	}
 }
