@@ -33,12 +33,12 @@ namespace VisualPinball.Unity.VisualScripting
 		[Tooltip("The switches that are exposed in the Visual Scripting nodes.")]
 		public VisualScriptingSwitch[] Switches;
 		public VisualScriptingCoil[] Coils;
-		public GamelogicEngineLamp[] Lamps;
+		public VisualScriptingLamp[] Lamps;
 		public GamelogicEngineWire[] Wires;
 
 		public GamelogicEngineSwitch[] AvailableSwitches => Switches.Select(sw => sw as GamelogicEngineSwitch).ToArray();
 
-		public GamelogicEngineLamp[] AvailableLamps => Lamps;
+		public GamelogicEngineLamp[] AvailableLamps => Lamps.Select(lamp => lamp as GamelogicEngineLamp).ToArray();
 
 		public GamelogicEngineCoil[] AvailableCoils => Coils.Select(c => c as GamelogicEngineCoil).ToArray();
 
