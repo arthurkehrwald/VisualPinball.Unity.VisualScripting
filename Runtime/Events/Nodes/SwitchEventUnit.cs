@@ -20,7 +20,7 @@ namespace VisualPinball.Unity.VisualScripting
 {
 	[UnitTitle("On Switch Changed")]
 	[UnitCategory("Events\\Visual Pinball")]
-	public class SwitchEventUnit : GleEventUnit<VisualScriptingScriptEvent>
+	public class SwitchEventUnit : GleEventUnit<SwitchEventArgs2>
 	{
 		[DoNotSerialize]
 		[PortLabel("Switch ID")]
@@ -46,12 +46,12 @@ namespace VisualPinball.Unity.VisualScripting
 			IsEnabled = ValueOutput<bool>(nameof(IsEnabled));
 		}
 
-		protected override bool ShouldTrigger(Flow flow, VisualScriptingScriptEvent args)
+		protected override bool ShouldTrigger(Flow flow, SwitchEventArgs2 args)
 		{
 			return flow.GetValue<string>(Id) == args.Id;
 		}
 
-		protected override void AssignArguments(Flow flow, VisualScriptingScriptEvent args)
+		protected override void AssignArguments(Flow flow, SwitchEventArgs2 args)
 		{
 			flow.SetValue(IsEnabled, args.IsEnabled);
 		}

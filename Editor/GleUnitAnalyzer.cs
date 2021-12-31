@@ -16,13 +16,14 @@
 
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using VisualPinball.Unity;
 using VisualPinball.Unity.VisualScripting;
 
 namespace Editor
 {
 
 	[Analyser(typeof(SwitchEventUnit))]
-	public class SwitchEventUnitAnalyzer : GleUnitAnalyser<VisualScriptingScriptEvent>
+	public class SwitchEventUnitAnalyzer : GleUnitAnalyser<SwitchEventArgs2>
 	{
 		public SwitchEventUnitAnalyzer(GraphReference reference, SwitchEventUnit target) : base(reference, target)
 		{
