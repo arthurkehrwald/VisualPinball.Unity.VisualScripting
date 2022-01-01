@@ -38,7 +38,7 @@ namespace VisualPinball.Unity.VisualScripting
 
 		public override EventHook GetHook(GraphReference reference)
 		{
-			return new EventHook(EventNames.LampEvent);
+			return new EventHook(VisualScriptingEventNames.LampEvent);
 		}
 
 		protected override void Definition()

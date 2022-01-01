@@ -54,12 +54,13 @@ namespace VisualPinball.Unity.VisualScripting
 
 		public void OnInit(Player player, TableApi tableApi, BallManager ballManager)
 		{
+			EventBus.Trigger(VisualScriptingEventNames.PlayerStartedEvent, EventArgs.Empty);
 		}
 
 		public void Switch(string id, bool isClosed)
 		{
 			OnSwitchChanged?.Invoke(this, new SwitchEventArgs2(id, isClosed));
-			EventBus.Trigger(EventNames.SwitchEvent, new SwitchEventArgs2(id, isClosed));
+			EventBus.Trigger(VisualScriptingEventNames.SwitchEvent, new SwitchEventArgs2(id, isClosed));
 		}
 
 		public void SetCoil(string id, bool isEnabled)

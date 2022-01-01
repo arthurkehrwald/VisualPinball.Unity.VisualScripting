@@ -35,7 +35,7 @@ namespace VisualPinball.Unity.VisualScripting
 		// Adding an EventHook with the name of the event to the list of visual scripting events.
 		public override EventHook GetHook(GraphReference reference)
 		{
-			return new EventHook(EventNames.SwitchEvent);
+			return new EventHook(VisualScriptingEventNames.SwitchEvent);
 		}
 
 		protected override void Definition()
