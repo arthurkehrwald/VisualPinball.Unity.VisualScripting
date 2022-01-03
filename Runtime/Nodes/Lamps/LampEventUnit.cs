@@ -18,21 +18,21 @@ using Unity.VisualScripting;
 
 namespace VisualPinball.Unity.VisualScripting
 {
-	[UnitTitle("On Lamp Event")]
+	[UnitTitle("On Lamp Changed")]
 	[UnitCategory("Events\\Visual Pinball")]
-	public sealed class LampEventUnit : EventUnit<LampEventArgs>
+	public sealed class LampEventUnit : GleEventUnit<LampEventArgs>
 	{
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueInput id { get; private set; }
+		[PortLabel("Lamp ID")]
+		public ValueInput Id { get; private set; }
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueOutput value { get; private set; }
+		[PortLabel("Intensity")]
+		public ValueOutput Value { get; private set; }
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueOutput enabled { get; private set; }
+		[PortLabel("Is Enabled")]
+		public ValueOutput IsEnabled { get; private set; }
 
 		protected override bool register => true;
 
@@ -45,21 +45,21 @@ namespace VisualPinball.Unity.VisualScripting
 		{
 			base.Definition();
 
-			id = ValueInput(nameof(id), string.Empty);
+			Id = ValueInput(nameof(Id), string.Empty);
 
-			value = ValueOutput<int>(nameof(value));
-			enabled = ValueOutput<bool>(nameof(enabled));
+			Value = ValueOutput<int>(nameof(Value));
+			IsEnabled = ValueOutput<bool>(nameof(IsEnabled));
 		}
 
 		protected override void AssignArguments(Flow flow, LampEventArgs args)
 		{
-			flow.SetValue(value, args.Value);
-			flow.SetValue(enabled, args.Value > 0);
+			flow.SetValue(Value, args.Value);
+			flow.SetValue(IsEnabled, args.Value > 0);
 		}
 
 		protected override bool ShouldTrigger(Flow flow, LampEventArgs args)
 		{
-			return args.Id == flow.GetValue<string>(id);
+			return args.Id == flow.GetValue<string>(Id);
 		}
 	}
 }
