@@ -67,7 +67,5 @@ namespace VisualPinball.Unity.VisualScripting
 
 			return OutputTrigger;
 		}
-
-
 	}
 }

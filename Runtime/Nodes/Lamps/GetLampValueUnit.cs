@@ -20,28 +20,28 @@ namespace VisualPinball.Unity.VisualScripting
 {
 	[UnitTitle("Get Lamp Value")]
 	[UnitCategory("Visual Pinball")]
-	public class GetLampValueUnit : Unit
+	public class GetLampValueUnit : GleUnit
 	{
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueInput id { get; private set; }
+		[PortLabel("Lamp ID")]
+		public ValueInput Id { get; private set; }
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueOutput value { get; private set; }
+		[PortLabel("Value")]
+		public ValueOutput Value { get; private set; }
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueOutput enabled { get; private set; }
+		[PortLabel("Is Enabled")]
+		public ValueOutput IsEnabled { get; private set; }
 
 		private Player _player;
 
 		protected override void Definition()
 		{
-			id = ValueInput(nameof(id), string.Empty);
+			Id = ValueInput(nameof(Id), string.Empty);
 
-			value = ValueOutput(nameof(value), GetValue);
-			enabled = ValueOutput(nameof(enabled), GetEnabled);
+			Value = ValueOutput(nameof(Value), GetValue);
+			IsEnabled = ValueOutput(nameof(IsEnabled), GetEnabled);
 		}
 
 		private float GetValue(Flow flow)
@@ -50,7 +50,7 @@ namespace VisualPinball.Unity.VisualScripting
 				_player = UnityEngine.Object.FindObjectOfType<Player>();
 			}
 
-			var key = flow.GetValue<string>(id);
+			var key = flow.GetValue<string>(Id);
 			return _player.LampStatuses.ContainsKey(key) ? _player.LampStatuses[key] : 0;
 		}
 
@@ -60,7 +60,7 @@ namespace VisualPinball.Unity.VisualScripting
 				_player = flow.stack.self.GetComponentInParent<Player>();
 			}
 
-			var key = flow.GetValue<string>(id);
+			var key = flow.GetValue<string>(Id);
 			return _player.LampStatuses.ContainsKey(key) && (_player.LampStatuses[key] > 0);
 		}
 	}

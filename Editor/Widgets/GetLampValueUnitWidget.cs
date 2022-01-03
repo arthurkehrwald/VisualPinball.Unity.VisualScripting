@@ -14,54 +14,47 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+// ReSharper disable UnusedType.Global
+
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using VisualPinball.Unity;
 
 namespace VisualPinball.Unity.VisualScripting.Editor
 {
 	[Widget(typeof(GetLampValueUnit))]
-	public sealed class GetLampValueUnitWidget : UnitWidget<GetLampValueUnit>
+	public sealed class GetLampValueUnitWidget : GleUnitWidget<GetLampValueUnit>
 	{
 		public GetLampValueUnitWidget(FlowCanvas canvas, GetLampValueUnit unit) : base(canvas, unit)
 		{
-			lampIdInspectorConstructor = (metadata) => new VariableNameInspector(metadata, GetNameSuggestions);
+			_lampIdInspectorConstructor = meta => new VariableNameInspector(meta, GetNameSuggestions);
 		}
 
 		protected override NodeColorMix baseColor => NodeColorMix.TealReadable;
 
-		private VariableNameInspector lampIdInspector;
-		private Func<Metadata, VariableNameInspector> lampIdInspectorConstructor;
+		private VariableNameInspector _lampIdInspector;
+		private readonly Func<Metadata, VariableNameInspector> _lampIdInspectorConstructor;
 
-		public override Inspector GetPortInspector(IUnitPort port, Metadata metadata)
+		public override Inspector GetPortInspector(IUnitPort port, Metadata meta)
 		{
-			if (port == unit.id) {
-				InspectorProvider.instance.Renew(ref lampIdInspector, metadata, lampIdInspectorConstructor);
+			if (port == unit.Id) {
+				InspectorProvider.instance.Renew(ref _lampIdInspector, meta, _lampIdInspectorConstructor);
 
-				return lampIdInspector;
+				return _lampIdInspector;
 			}
 
-			return base.GetPortInspector(port, metadata);
+			return base.GetPortInspector(port, meta);
 		}
 
 		private IEnumerable<string> GetNameSuggestions()
 		{
-			var list = new List<string>();
-
-			var tableComponent = TableSelector.Instance.SelectedTable;
-
-			if (tableComponent != null) {
-				var gle = tableComponent.gameObject.GetComponent<IGamelogicEngine>();
-
-				if (gle != null) {
-					foreach (var lamp in gle.AvailableLamps) {
-						list.Add(lamp.Id);
-					}
-				}
+			if (!GameObjectAvailable) {
+				return new List<string>();
 			}
-
-			return list;
+			var gle = Gle;
+			return gle == null ? new List<string>() : gle.AvailableLamps.Select(lamp => lamp.Id).ToList();
 		}
 	}
 }

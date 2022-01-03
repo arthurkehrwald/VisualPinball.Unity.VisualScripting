@@ -50,6 +50,7 @@ namespace VisualPinball.Unity.VisualScripting
 			Requirement(Id, InputTrigger);
 			Succession(InputTrigger, OutputTrigger);
 		}
+
 		private ControlOutput Process(Flow flow)
 		{
 			var gle = flow.stack.gameObject.GetComponentInParent<VisualScriptingGamelogicEngine>();
@@ -67,7 +68,5 @@ namespace VisualPinball.Unity.VisualScripting
 
 			return OutputTrigger;
 		}
-
-
 	}
 }
