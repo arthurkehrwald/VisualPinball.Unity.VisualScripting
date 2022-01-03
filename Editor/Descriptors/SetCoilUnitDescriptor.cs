@@ -28,7 +28,7 @@ namespace VisualPinball.Unity.VisualScripting.Editor
 
 		protected override string DefinedSummary()
 		{
-			return "This node sets a given coil value to a coil, defined by its ID.";
+			return "This node assigns a given value to a coil defined by its ID.";
 		}
 
 		protected override EditorTexture DefinedIcon()
@@ -43,10 +43,10 @@ namespace VisualPinball.Unity.VisualScripting.Editor
 
 			switch (port.key) {
 				case nameof(SetCoilUnit.Id):
-					description.summary = "The ID of the coil to be set.";
+					desc.summary = "The ID of the coil to be set.";
 					break;
 				case nameof(SetCoilUnit.IsEnabled):
-					description.summary = "The value to assign to the coil.";
+					desc.summary = "The value to assign to the coil.";
 					break;
 			}
 		}

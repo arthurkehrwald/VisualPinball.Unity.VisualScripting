@@ -15,7 +15,6 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using Unity.VisualScripting;
-using VisualPinball.Unity.Editor;
 
 namespace VisualPinball.Unity.VisualScripting.Editor
 {
@@ -31,18 +30,18 @@ namespace VisualPinball.Unity.VisualScripting.Editor
 			return "This node triggers an event when a switch with a given ID changes.";
 		}
 
-		protected override EditorTexture DefinedIcon() => EditorTexture.Single(VisualPinball.Unity.Editor.Icons.SwitchEvent);
+		protected override EditorTexture DefinedIcon() => EditorTexture.Single(Unity.Editor.Icons.SwitchEvent);
 
 		protected override void DefinedPort(IUnitPort port, UnitPortDescription desc)
 		{
 			base.DefinedPort(port, desc);
 
 			switch (port.key) {
-				case nameof(SetCoilUnit.Id):
-					description.summary = "The ID of the switch that changed its value.";
+				case nameof(SwitchEventUnit.Id):
+					desc.summary = "The ID of the switch that changed its value.";
 					break;
-				case nameof(SetCoilUnit.IsEnabled):
-					description.summary = "The new value of the switch.";
+				case nameof(SwitchEventUnit.IsEnabled):
+					desc.summary = "The new value of the switch, true if enabled, false otherwise.";
 					break;
 			}
 		}
