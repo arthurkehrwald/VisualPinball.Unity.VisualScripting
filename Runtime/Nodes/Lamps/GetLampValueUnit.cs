@@ -15,6 +15,7 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using Unity.VisualScripting;
+using UnityEngine;
 
 namespace VisualPinball.Unity.VisualScripting
 {
@@ -46,22 +47,22 @@ namespace VisualPinball.Unity.VisualScripting
 
 		private float GetValue(Flow flow)
 		{
-			if (_player == null) {
-				_player = UnityEngine.Object.FindObjectOfType<Player>();
+			if (!AssertGle(flow))  {
+				Debug.LogError("Cannot find GLE.");
+				return 0;
 			}
 
-			var key = flow.GetValue<string>(Id);
-			return _player.LampStatuses.ContainsKey(key) ? _player.LampStatuses[key] : 0;
+			return Gle.GetLamp(flow.GetValue<string>(Id));
 		}
 
 		private bool GetEnabled(Flow flow)
 		{
-			if (_player == null) {
-				_player = flow.stack.self.GetComponentInParent<Player>();
+			if (!AssertGle(flow))  {
+				Debug.LogError("Cannot find GLE.");
+				return false;
 			}
 
-			var key = flow.GetValue<string>(Id);
-			return _player.LampStatuses.ContainsKey(key) && (_player.LampStatuses[key] > 0);
+			return Gle.GetLamp(flow.GetValue<string>(Id)) > 0;
 		}
 	}
 }

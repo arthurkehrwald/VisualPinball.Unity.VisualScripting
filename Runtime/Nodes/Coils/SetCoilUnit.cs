@@ -50,20 +50,18 @@ namespace VisualPinball.Unity.VisualScripting
 			Requirement(Id, InputTrigger);
 			Succession(InputTrigger, OutputTrigger);
 		}
+
 		private ControlOutput Process(Flow flow)
 		{
-			var gle = flow.stack.gameObject.GetComponentInParent<VisualScriptingGamelogicEngine>();
-
-			if (gle != null) {
-
-				var id = flow.GetValue<string>(Id);
-				var isEnabled = flow.GetValue<bool>(IsEnabled);
-
-				gle.SetCoil(id, isEnabled);
-
-			} else {
+			if (!AssertGle(flow))  {
 				Debug.LogError("Cannot find GLE.");
+				return OutputTrigger;
 			}
+
+			var id = flow.GetValue<string>(Id);
+			var isEnabled = flow.GetValue<bool>(IsEnabled);
+
+			Gle.SetCoil(id, isEnabled);
 
 			return OutputTrigger;
 		}
