@@ -52,8 +52,11 @@ namespace VisualPinball.Unity.VisualScripting
 		public event EventHandler<CoilEventArgs> OnCoilChanged;
 		public event EventHandler<SwitchEventArgs2> OnSwitchChanged;
 
+		[NonSerialized] private Player _player;
+
 		public void OnInit(Player player, TableApi tableApi, BallManager ballManager)
 		{
+			_player = player;
 			EventBus.Trigger(VisualScriptingEventNames.PlayerStartedEvent, EventArgs.Empty);
 		}
 
@@ -76,6 +79,21 @@ namespace VisualPinball.Unity.VisualScripting
 		public void SetLamp(string id, Color color)
 		{
 			OnLampColorChanged?.Invoke(this, new LampColorEventArgs(id, color));
+		}
+
+		public float GetLamp(string id)
+		{
+			return _player.LampStatuses.ContainsKey(id) ? _player.LampStatuses[id] : 0;
+		}
+
+		public bool GetSwitch(string id)
+		{
+			return _player.SwitchStatuses.ContainsKey(id) && _player.SwitchStatuses[id].IsSwitchEnabled;
+		}
+
+		public bool GetCoil(string id)
+		{
+			return _player.CoilStatuses.ContainsKey(id) && _player.CoilStatuses[id];
 		}
 	}
 }
