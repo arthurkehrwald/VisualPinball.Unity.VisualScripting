@@ -14,16 +14,18 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
+// ReSharper disable UnusedType.Global
+
 using Unity.VisualScripting;
 using VisualPinball.Unity.Editor;
 using IconSize = VisualPinball.Unity.Editor.IconSize;
 
 namespace VisualPinball.Unity.VisualScripting.Editor
 {
-	[Descriptor(typeof(GetLampValueUnit))]
-	public class GetLampValueUnitDescriptor : UnitDescriptor<GetLampValueUnit>
+	[Descriptor(typeof(GetLampUnit))]
+	public class GetLampUnitDescriptor : UnitDescriptor<GetLampUnit>
 	{
-		public GetLampValueUnitDescriptor(GetLampValueUnit target) : base(target)
+		public GetLampUnitDescriptor(GetLampUnit target) : base(target)
 		{
 		}
 
@@ -39,13 +41,13 @@ namespace VisualPinball.Unity.VisualScripting.Editor
 			base.DefinedPort(port, desc);
 
 			switch (port.key) {
-				case nameof(GetLampValueUnit.Id):
+				case nameof(GetLampUnit.Id):
 					desc.summary = "The ID of the lamp for which the intensity is returned.";
 					break;
-				case nameof(GetLampValueUnit.Value):
+				case nameof(GetLampUnit.Value):
 					desc.summary = "The intensity of the lamp.";
 					break;
-				case nameof(GetLampValueUnit.IsEnabled):
+				case nameof(GetLampUnit.IsEnabled):
 					desc.summary = "Whether the intensity is larger than 0.";
 					break;
 			}

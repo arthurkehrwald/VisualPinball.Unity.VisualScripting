@@ -21,7 +21,7 @@ namespace VisualPinball.Unity.VisualScripting
 {
 	[UnitTitle("Get Lamp Value")]
 	[UnitCategory("Visual Pinball")]
-	public class GetLampValueUnit : GleUnit
+	public class GetLampUnit : GleUnit
 	{
 		[DoNotSerialize]
 		[PortLabel("Lamp ID")]
@@ -47,7 +47,7 @@ namespace VisualPinball.Unity.VisualScripting
 
 		private float GetValue(Flow flow)
 		{
-			if (!AssertGle(flow))  {
+			if (!AssertGle(flow)) {
 				Debug.LogError("Cannot find GLE.");
 				return 0;
 			}
@@ -57,7 +57,7 @@ namespace VisualPinball.Unity.VisualScripting
 
 		private bool GetEnabled(Flow flow)
 		{
-			if (!AssertGle(flow))  {
+			if (!AssertGle(flow)) {
 				Debug.LogError("Cannot find GLE.");
 				return false;
 			}

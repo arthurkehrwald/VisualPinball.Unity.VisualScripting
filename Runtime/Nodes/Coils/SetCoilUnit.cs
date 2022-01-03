@@ -53,7 +53,7 @@ namespace VisualPinball.Unity.VisualScripting
 
 		private ControlOutput Process(Flow flow)
 		{
-			if (!AssertGle(flow))  {
+			if (!AssertGle(flow)) {
 				Debug.LogError("Cannot find GLE.");
 				return OutputTrigger;
 			}
