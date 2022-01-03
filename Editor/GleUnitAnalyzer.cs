@@ -19,7 +19,7 @@ using Unity.VisualScripting;
 using VisualPinball.Unity;
 using VisualPinball.Unity.VisualScripting;
 
-namespace Editor
+namespace VisualPinball.Unity.VisualScripting.Editor
 {
 
 	[Analyser(typeof(SwitchEventUnit))]

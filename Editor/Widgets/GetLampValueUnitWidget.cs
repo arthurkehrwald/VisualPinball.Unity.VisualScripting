@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using VisualPinball.Unity;
 
-namespace VisualPinball.Unity.VisualScripting
+namespace VisualPinball.Unity.VisualScripting.Editor
 {
 	[Widget(typeof(GetLampValueUnit))]
 	public sealed class GetLampValueUnitWidget : UnitWidget<GetLampValueUnit>

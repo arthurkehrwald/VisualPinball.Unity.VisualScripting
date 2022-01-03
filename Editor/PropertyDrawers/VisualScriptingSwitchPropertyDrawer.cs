@@ -17,12 +17,12 @@
 using UnityEditor;
 using VisualPinball.Unity.VisualScripting;
 
-namespace Editor.PropertyDrawers
+namespace VisualPinball.Unity.VisualScripting.Editor
 {
 	[CustomPropertyDrawer(typeof(VisualScriptingSwitch))]
 	public class VisualScriptingSwitchPropertyDrawer : VisualScriptingDeviceItemPropertyDrawer
 	{
-		public override string NameName => nameof(VisualScriptingSwitch.Name);
-		public override string DescName => nameof(VisualScriptingSwitch.Desc);
+		protected override string NameName => nameof(VisualScriptingSwitch.Name);
+		protected override string DescName => nameof(VisualScriptingSwitch.Desc);
 	}
 }

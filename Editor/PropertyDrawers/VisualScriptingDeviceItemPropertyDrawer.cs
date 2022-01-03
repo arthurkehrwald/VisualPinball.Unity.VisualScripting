@@ -16,16 +16,15 @@
 
 using UnityEditor;
 using UnityEngine;
-using VisualPinball.Unity.VisualScripting;
 
-namespace Editor.PropertyDrawers
+namespace VisualPinball.Unity.VisualScripting.Editor
 {
 	public abstract class VisualScriptingDeviceItemPropertyDrawer : PropertyDrawer
 	{
 		private const float Padding = 2f;
 
-		public abstract string NameName { get; }
-		public abstract string DescName { get; }
+		protected abstract string NameName { get; }
+		protected abstract string DescName { get; }
 
 		public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
 		{

@@ -29,8 +29,7 @@ namespace VisualPinball.Unity.VisualScripting.Editor
 		{
 			base.DefinedPort(port, description);
 
-			switch (port.key)
-			{
+			switch (port.key) {
 				case nameof(SetCoilUnit.Id):
 					description.summary = "The ID of the coil to be set.";
 					break;

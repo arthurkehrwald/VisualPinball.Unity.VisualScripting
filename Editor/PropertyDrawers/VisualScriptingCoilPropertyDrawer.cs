@@ -15,14 +15,13 @@
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 using UnityEditor;
-using VisualPinball.Unity.VisualScripting;
 
-namespace Editor.PropertyDrawers
+namespace VisualPinball.Unity.VisualScripting.Editor
 {
 	[CustomPropertyDrawer(typeof(VisualScriptingCoil))]
 	public class VisualScriptingCoilPropertyDrawer : VisualScriptingDeviceItemPropertyDrawer
 	{
-		public override string NameName => nameof(VisualScriptingCoil.Name);
-		public override string DescName => nameof(VisualScriptingCoil.Desc);
+		protected override string NameName => nameof(VisualScriptingCoil.Name);
+		protected override string DescName => nameof(VisualScriptingCoil.Desc);
 	}
 }

@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 
-namespace VisualPinball.Unity.VisualScripting
+namespace VisualPinball.Unity.VisualScripting.Editor
 {
 	[Widget(typeof(SwitchEventUnit))]
 	public sealed class SwitchEventUnitWidget : GleUnitWidget<SwitchEventUnit>

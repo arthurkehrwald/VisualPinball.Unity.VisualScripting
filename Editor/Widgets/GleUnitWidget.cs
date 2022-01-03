@@ -14,12 +14,9 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Unity.VisualScripting;
 
-namespace VisualPinball.Unity.VisualScripting
+namespace VisualPinball.Unity.VisualScripting.Editor
 {
 	public abstract class GleUnitWidget<TUnit> : UnitWidget<TUnit> where TUnit : Unit, IGleUnit
 	{

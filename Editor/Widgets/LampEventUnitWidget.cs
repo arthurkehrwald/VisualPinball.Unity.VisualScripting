@@ -18,7 +18,7 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-namespace VisualPinball.Unity.VisualScripting
+namespace VisualPinball.Unity.VisualScripting.Editor
 {
 	[Widget(typeof(LampEventUnit))]
 	public sealed class LampEventUnitWidget : UnitWidget<LampEventUnit>
