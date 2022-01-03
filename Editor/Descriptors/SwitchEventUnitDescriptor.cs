@@ -19,23 +19,19 @@ using VisualPinball.Unity.Editor;
 
 namespace VisualPinball.Unity.VisualScripting.Editor
 {
-	[Descriptor(typeof(SetCoilUnit))]
-	public class SetCoilUnitDescriptor : UnitDescriptor<SetCoilUnit>
+	[Descriptor(typeof(SwitchEventUnit))]
+	public class SwitchEventUnitDescriptor : UnitDescriptor<SwitchEventUnit>
 	{
-		public SetCoilUnitDescriptor(SetCoilUnit target) : base(target)
+		public SwitchEventUnitDescriptor(SwitchEventUnit target) : base(target)
 		{
 		}
 
 		protected override string DefinedSummary()
 		{
-			return "This node sets a given coil value to a coil, defined by its ID.";
+			return "This node triggers an event when a switch with a given ID changes.";
 		}
 
-		protected override EditorTexture DefinedIcon()
-		{
-			var texture = VisualPinball.Unity.Editor.Icons.Coil(VisualPinball.Unity.Editor.IconSize.Large, IconColor.Orange);
-			return EditorTexture.Single(texture);
-		}
+		protected override EditorTexture DefinedIcon() => EditorTexture.Single(VisualPinball.Unity.Editor.Icons.SwitchEvent);
 
 		protected override void DefinedPort(IUnitPort port, UnitPortDescription desc)
 		{
@@ -43,10 +39,10 @@ namespace VisualPinball.Unity.VisualScripting.Editor
 
 			switch (port.key) {
 				case nameof(SetCoilUnit.Id):
-					description.summary = "The ID of the coil to be set.";
+					description.summary = "The ID of the switch that changed its value.";
 					break;
 				case nameof(SetCoilUnit.IsEnabled):
-					description.summary = "The value to assign to the coil.";
+					description.summary = "The new value of the switch.";
 					break;
 			}
 		}

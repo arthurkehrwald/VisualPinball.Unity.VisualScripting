@@ -8,6 +8,7 @@
         "Unity.VisualScripting.Flow.Editor",
         "VisualPinball.Unity.VisualScripting.Runtime",
         "VisualPinball.Unity",
+        "VisualPinball.Unity.Editor",
         "VisualPinball.Engine"
     ],
     "includePlatforms": [
