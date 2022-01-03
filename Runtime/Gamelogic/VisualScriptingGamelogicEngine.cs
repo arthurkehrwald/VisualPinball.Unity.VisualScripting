@@ -71,7 +71,7 @@ namespace VisualPinball.Unity.VisualScripting
 			OnCoilChanged?.Invoke(this, new CoilEventArgs(id, isEnabled));
 		}
 
-		public void SetLamp(string id, int value, bool isCoil = false, LampSource source = LampSource.Lamp)
+		public void SetLamp(string id, float value, bool isCoil = false, LampSource source = LampSource.Lamp)
 		{
 			OnLampChanged?.Invoke(this, new LampEventArgs(id, value, isCoil, source));
 		}

@@ -19,7 +19,7 @@ using UnityEngine;
 
 namespace VisualPinball.Unity.VisualScripting
 {
-	[UnitTitle("Set Lamp")]
+	[UnitTitle("Set Lamp Value")]
 	[UnitCategory("Visual Pinball")]
 	public class SetLampUnit : GleUnit
 	{
@@ -45,7 +45,7 @@ namespace VisualPinball.Unity.VisualScripting
 			OutputTrigger = ControlOutput(nameof(OutputTrigger));
 
 			Id = ValueInput<string>(nameof(Id), string.Empty);
-			Value = ValueInput<int>(nameof(Value), 0);
+			Value = ValueInput<float>(nameof(Value), 0f);
 
 			Requirement(Id, InputTrigger);
 			Succession(InputTrigger, OutputTrigger);
@@ -53,18 +53,16 @@ namespace VisualPinball.Unity.VisualScripting
 
 		private ControlOutput Process(Flow flow)
 		{
-			var gle = flow.stack.gameObject.GetComponentInParent<VisualScriptingGamelogicEngine>();
 
-			if (gle != null) {
-
-				var id = flow.GetValue<string>(Id);
-				var value = flow.GetValue<int>(Value);
-
-				gle.SetLamp(id, value);
-
-			} else {
+			if (!AssertGle(flow)) {
 				Debug.LogError("Cannot find GLE.");
+				return OutputTrigger;
 			}
+
+			var id = flow.GetValue<string>(Id);
+			var value = flow.GetValue<float>(Value);
+
+			Gle.SetLamp(id, value);
 
 			return OutputTrigger;
 		}

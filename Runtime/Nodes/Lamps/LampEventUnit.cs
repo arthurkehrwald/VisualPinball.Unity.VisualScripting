@@ -47,7 +47,7 @@ namespace VisualPinball.Unity.VisualScripting
 
 			Id = ValueInput(nameof(Id), string.Empty);
 
-			Value = ValueOutput<int>(nameof(Value));
+			Value = ValueOutput<float>(nameof(Value));
 			IsEnabled = ValueOutput<bool>(nameof(IsEnabled));
 		}
 

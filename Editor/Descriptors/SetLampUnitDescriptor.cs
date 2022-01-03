@@ -22,16 +22,16 @@ using IconSize = VisualPinball.Unity.Editor.IconSize;
 
 namespace VisualPinball.Unity.VisualScripting.Editor
 {
-	[Descriptor(typeof(GetLampUnit))]
-	public class GetLampUnitDescriptor : UnitDescriptor<GetLampUnit>
+	[Descriptor(typeof(SetLampUnit))]
+	public class SetLampUnitDescriptor : UnitDescriptor<SetLampUnit>
 	{
-		public GetLampUnitDescriptor(GetLampUnit target) : base(target)
+		public SetLampUnitDescriptor(SetLampUnit target) : base(target)
 		{
 		}
 
 		protected override string DefinedSummary()
 		{
-			return "This node retrieves the current intensity of the lamp, as well as if the lamp is enabled or not.";
+			return "This node assigns a given value to a lamp defined by its mapped ID. This will also trigger the lamp changed event and update the internal status.";
 		}
 
 		protected override EditorTexture DefinedIcon() => EditorTexture.Single(Unity.Editor.Icons.Light(IconSize.Large, IconColor.Orange));
@@ -41,14 +41,11 @@ namespace VisualPinball.Unity.VisualScripting.Editor
 			base.DefinedPort(port, desc);
 
 			switch (port.key) {
-				case nameof(GetLampUnit.Id):
+				case nameof(SetLampUnit.Id):
 					desc.summary = "The ID of the lamp for which the intensity is returned.";
 					break;
-				case nameof(GetLampUnit.Value):
+				case nameof(SetLampUnit.Value):
 					desc.summary = "The intensity of the lamp (0-1).";
-					break;
-				case nameof(GetLampUnit.IsEnabled):
-					desc.summary = "Whether the intensity is larger than 0.";
 					break;
 			}
 		}

@@ -43,7 +43,7 @@ namespace VisualPinball.Unity.VisualScripting.Editor
 					desc.summary = "The ID of the lamp that changed its intensity.";
 					break;
 				case nameof(LampEventUnit.Value):
-					desc.summary = "The new intensity of the lamp (0-255).";
+					desc.summary = "The new intensity of the lamp (0-1).";
 					break;
 				case nameof(LampEventUnit.IsEnabled):
 					desc.summary = "Whether the intensity is larger than 0.";
