@@ -19,6 +19,7 @@ using Unity.VisualScripting;
 namespace VisualPinball.Unity.VisualScripting
 {
 	[UnitTitle("On Switch Changed")]
+	[UnitSurtitle("Gamelogic Engine")]
 	[UnitCategory("Events\\Visual Pinball")]
 	public class SwitchEventUnit : GleEventUnit<SwitchEventArgs2>
 	{

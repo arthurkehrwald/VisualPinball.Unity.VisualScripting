@@ -19,6 +19,7 @@ using Unity.VisualScripting;
 namespace VisualPinball.Unity.VisualScripting
 {
 	[UnitTitle("On Lamp Changed")]
+	[UnitSurtitle("Gamelogic Engine")]
 	[UnitCategory("Events\\Visual Pinball")]
 	public sealed class LampEventUnit : GleEventUnit<LampEventArgs>
 	{

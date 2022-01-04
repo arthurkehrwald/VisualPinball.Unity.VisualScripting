@@ -20,6 +20,7 @@ using UnityEngine;
 namespace VisualPinball.Unity.VisualScripting
 {
 	[UnitTitle("Set Coil")]
+	[UnitSurtitle("Gamelogic Engine")]
 	[UnitCategory("Visual Pinball")]
 	public class SetCoilUnit : GleUnit
 	{

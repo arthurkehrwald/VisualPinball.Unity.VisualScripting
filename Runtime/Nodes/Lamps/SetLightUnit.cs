@@ -14,71 +14,69 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using VisualPinball.Engine.Math;
 
 namespace VisualPinball.Unity.VisualScripting
 {
-	[UnitTitle("Set Light")]
+	[UnitTitle("Set Lamp (Component, Value, Channel)")]
+	[UnitShortTitle("Set Lamp")]
+	[UnitSurtitle("Scene")]
 	[UnitCategory("Visual Pinball")]
-	public class SetLightUnit : Unit
+	[UnitOrder(1)]
+	public class SetLightUnit : GleUnit
 	{
 		[DoNotSerialize]
 		[PortLabelHidden]
-		public ControlInput enter { get; private set; }
+		public ControlInput InputTrigger;
 
 		[DoNotSerialize]
 		[PortLabelHidden]
-		public ValueInput value;
+		public ControlOutput OutputTrigger;
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueInput colorChannel;
+		[PortLabel("Component")]
+		public ValueInput LampComponent;
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueInput gameObjects;
+		[PortLabel("Value")]
+		public ValueInput Value;
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ControlOutput exit { get; private set; }
+		[PortLabel("Color Channel")]
+		public ValueInput ColorChannel;
 
 		private Player _player;
 
-
-
 		protected override void Definition()
 		{
-			enter = ControlInput(nameof(enter), Process);
+			InputTrigger = ControlInput(nameof(InputTrigger), Process);
+			OutputTrigger = ControlOutput(nameof(OutputTrigger));
 
-			gameObjects = ValueInput<List<GameObject>>(nameof(gameObjects));
+			LampComponent = ValueInput<Object>(nameof(LampComponent), null);
 
-			value = ValueInput<float>(nameof(value), 0);
-			colorChannel = ValueInput(nameof(colorChannel), ColorChannel.Alpha);
+			Value = ValueInput<float>(nameof(Value), 0f);
+			ColorChannel = ValueInput(nameof(ColorChannel), Engine.Math.ColorChannel.Alpha);
 
-			exit = ControlOutput(nameof(exit));
+			Requirement(LampComponent, InputTrigger);
+			Succession(InputTrigger, OutputTrigger);
 		}
 
 		private ControlOutput Process(Flow flow)
 		{
-			if (_player == null) {
-				_player = UnityEngine.Object.FindObjectOfType<Player>();
+			if (!AssertPlayer(flow)) {
+				Debug.LogError("Cannot find player.");
+				return OutputTrigger;
 			}
 
-			var valueRaw = flow.GetValue<float>(value);
-			var colorChannelRaw = flow.GetValue<ColorChannel>(colorChannel);
+			var lamp = flow.GetValue<Object>(LampComponent) as ILampDeviceComponent;
+			var valueRaw = flow.GetValue<float>(Value);
+			var colorChannelRaw = flow.GetValue<ColorChannel>(ColorChannel);
 
-			foreach (var go in flow.GetValue<List<GameObject>>(gameObjects)) {
-				if (go != null) {
-					foreach (var lamp in go.GetComponentsInChildren<ILampDeviceComponent>()) {
-						_player.Lamp(lamp).OnLamp(valueRaw, colorChannelRaw);
-					}
-				}
-			}
+			Player.Lamp(lamp).OnLamp(valueRaw, colorChannelRaw);
 
-			return exit;
+			return OutputTrigger;
 		}
 	}
 }

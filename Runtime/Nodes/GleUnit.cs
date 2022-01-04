@@ -33,13 +33,25 @@ namespace VisualPinball.Unity.VisualScripting
 		[DoNotSerialize]
 		protected IGamelogicEngine Gle;
 
+		[DoNotSerialize]
+		protected Player Player;
+
 		protected bool AssertGle(Flow flow)
 		{
 			if (Gle != null) {
 				return true;
 			}
 			Gle = flow.stack.gameObject.GetComponentInParent<IGamelogicEngine>();
-			return Gle == null;
+			return Gle != null;
+		}
+
+		protected bool AssertPlayer(Flow flow)
+		{
+			if (Player != null) {
+				return true;
+			}
+			Player = flow.stack.gameObject.GetComponentInParent<Player>();
+			return Player != null;
 		}
 	}
 
