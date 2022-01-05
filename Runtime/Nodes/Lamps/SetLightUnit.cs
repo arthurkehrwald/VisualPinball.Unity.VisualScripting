@@ -24,7 +24,6 @@ namespace VisualPinball.Unity.VisualScripting
 	[UnitShortTitle("Set Lamp")]
 	[UnitSurtitle("Scene")]
 	[UnitCategory("Visual Pinball")]
-	[UnitOrder(1)]
 	public class SetLightUnit : GleUnit
 	{
 		[DoNotSerialize]
@@ -40,7 +39,7 @@ namespace VisualPinball.Unity.VisualScripting
 		public ValueInput LampComponent;
 
 		[DoNotSerialize]
-		[PortLabel("Value")]
+		[PortLabel("Intensity")]
 		public ValueInput Value;
 
 		[DoNotSerialize]

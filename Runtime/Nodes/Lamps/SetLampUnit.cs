@@ -23,7 +23,6 @@ namespace VisualPinball.Unity.VisualScripting
 	[UnitTitle("Set Lamp (ID, Value)")]
 	[UnitSurtitle("Gamelogic Engine")]
 	[UnitCategory("Visual Pinball")]
-	[UnitOrder(0)]
 	public class SetLampUnit : GleUnit
 	{
 		[DoNotSerialize]

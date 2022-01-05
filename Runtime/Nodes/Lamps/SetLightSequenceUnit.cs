@@ -14,7 +14,6 @@
 // You should have received a copy of the GNU General Public License
 // along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using VisualPinball.Engine.Math;
@@ -22,83 +21,75 @@ using VisualPinball.Engine.Math;
 namespace VisualPinball.Unity.VisualScripting
 {
 	[UnitTitle("Set Light Sequence")]
+	[UnitSurtitle("Scene")]
 	[UnitCategory("Visual Pinball")]
-	public class SetLightSequenceUnit : Unit
+	public class SetLightSequenceUnit : GleUnit
 	{
 		[DoNotSerialize]
 		[PortLabelHidden]
-		public ControlInput enter { get; private set; }
+		public ControlInput InputTrigger;
 
 		[DoNotSerialize]
 		[PortLabelHidden]
-		public ValueInput gameObjects;
+		public ControlOutput OutputTrigger;
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueInput value;
+		[PortLabel("Light Group")]
+		public ValueInput LightGroup;
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ValueInput colorChannel;
+		[PortLabel("Intensity")]
+		public ValueInput Value;
 
 		[DoNotSerialize]
-		public ValueInput step;
+		[PortLabel("Color Channel")]
+		public ValueInput ColorChannel;
 
 		[DoNotSerialize]
-		[PortLabelHidden]
-		public ControlOutput exit { get; private set; }
+		[PortLabel("Step")]
+		public ValueInput Step;
 
-		private Player _player;
-		private int _currentIndex = 0;
+		private int _currentIndex;
 
 		protected override void Definition()
 		{
-			enter = ControlInput(nameof(enter), Process);
+			InputTrigger = ControlInput(nameof(InputTrigger), Process);
+			OutputTrigger = ControlOutput(nameof(OutputTrigger));
 
-			gameObjects = ValueInput<List<GameObject>>(nameof(gameObjects));
+			LightGroup = ValueInput<LightGroupComponent>(nameof(LightGroup));
 
-			value = ValueInput<float>(nameof(value), 0);
-			colorChannel = ValueInput(nameof(colorChannel), ColorChannel.Alpha);
-			step = ValueInput<int>(nameof(step), 1);
+			Value = ValueInput<float>(nameof(Value), 0);
+			ColorChannel = ValueInput(nameof(ColorChannel), Engine.Math.ColorChannel.Alpha);
+			Step = ValueInput<int>(nameof(Step), 1);
 
-			exit = ControlOutput(nameof(exit));
+			Requirement(Lights, InputTrigger);
+			Requirement(Value, InputTrigger);
+			Succession(InputTrigger, OutputTrigger);
 		}
 
 		private ControlOutput Process(Flow flow)
 		{
-			if (_player == null) {
-				_player = Object.FindObjectOfType<Player>();
+			if (!AssertPlayer(flow)) {
+				Debug.LogError("Cannot find player.");
+				return OutputTrigger;
 			}
 
-			var valueRaw = flow.GetValue<float>(value);
-			var colorChannelRaw = flow.GetValue<ColorChannel>(colorChannel);
-			var stepRaw = flow.GetValue<int>(step);
+			var valueRaw = flow.GetValue<float>(Value);
+			var colorChannelRaw = flow.GetValue<ColorChannel>(ColorChannel);
+			var stepRaw = flow.GetValue<int>(Step);
+			var lamps = flow.GetValue<LightGroupComponent>(LightGroup).Lights;
 
-			var lights = new List<ILampDeviceComponent>();
-
-			foreach (var go in flow.GetValue<List<GameObject>>(gameObjects)) {
-				if (go != null) {
-					foreach (var lamp in go.GetComponentsInChildren<ILampDeviceComponent>()) {
-						if (lamp is LightGroupComponent lightGroup) {
-							lights.AddRange(lightGroup.Lights);
-						} else {
-							lights.Add(lamp);
-						}
-					}
-				}
-			}
-
-			for (var index = 0; index < lights.Count; index++) {
-				_player.Lamp(lights[index]).OnLamp(
+			for (var index = 0; index < lamps.Count; index++) {
+				Player.Lamp(lamps[index]).OnLamp(
 					index >= _currentIndex * stepRaw && index < (_currentIndex + 1) * stepRaw ? valueRaw : 0,
 					colorChannelRaw);
 			}
 
-			if (++_currentIndex >= lights.Count / stepRaw) {
+			if (++_currentIndex >= lamps.Count / stepRaw) {
 				_currentIndex = 0;
 			}
 
-			return exit;
+			return OutputTrigger;
 		}
 	}
 }

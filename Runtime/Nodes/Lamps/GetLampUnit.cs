@@ -36,8 +36,6 @@ namespace VisualPinball.Unity.VisualScripting
 		[PortLabel("Is Enabled")]
 		public ValueOutput IsEnabled { get; private set; }
 
-		private Player _player;
-
 		protected override void Definition()
 		{
 			Id = ValueInput(nameof(Id), string.Empty);
