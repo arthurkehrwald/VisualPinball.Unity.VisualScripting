@@ -42,10 +42,7 @@ namespace VisualPinball.Unity.VisualScripting
 				return;
 			}
 
-			_gle.OnSwitchChanged += OnSwitchChanged;
-			_gle.OnCoilChanged += OnCoilChanged;
-			_gle.OnLampChanged += OnLampChanged;
-			_player.OnPlayerStarted += OnPlayerStarted;
+			_player.OnPlayerStarted += OnPlayerStarted; 
 		}
 
 		private void OnDestroy()
@@ -70,8 +67,14 @@ namespace VisualPinball.Unity.VisualScripting
 			EventBus.Trigger(VisualScriptingEventNames.CoilEvent, e);
 		}
 
-		private static void OnPlayerStarted(object sender, EventArgs e)
+		private void OnPlayerStarted(object sender, EventArgs e)
 		{
+			if (_gle != null) {
+				_gle.OnSwitchChanged += OnSwitchChanged;
+				_gle.OnCoilChanged += OnCoilChanged;
+				_gle.OnLampChanged += OnLampChanged;
+			}
+
 			EventBus.Trigger(VisualScriptingEventNames.PlayerStartedEvent, EventArgs.Empty);
 		}
 
