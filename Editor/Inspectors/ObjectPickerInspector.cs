@@ -30,6 +30,8 @@ namespace VisualPinball.Unity.VisualScripting.Editor
 			_devicePicker = new ObjectReferencePicker<T>(title, tableComponent, true);
 		}
 
+		public override float GetAdaptiveWidth() => 100f;
+
 		protected override float GetHeight(float width, GUIContent label) => EditorGUIUtility.singleLineHeight;
 
 		protected override void OnGUI(Rect position, GUIContent label)
