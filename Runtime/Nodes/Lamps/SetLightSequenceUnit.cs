@@ -62,7 +62,7 @@ namespace VisualPinball.Unity.VisualScripting
 			ColorChannel = ValueInput(nameof(ColorChannel), Engine.Math.ColorChannel.Alpha);
 			Step = ValueInput<int>(nameof(Step), 1);
 
-			Requirement(Lights, InputTrigger);
+			Requirement(LightGroup, InputTrigger);
 			Requirement(Value, InputTrigger);
 			Succession(InputTrigger, OutputTrigger);
 		}
