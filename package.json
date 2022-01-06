@@ -1,5 +1,5 @@
 {
-  "name": "org.visualpinball.engine.unity.visualscripting",
+  "name": "org.visualpinball.unity.visualscripting",
   "version": "0.0.1-preview.0",
   "displayName": "Visual Pinball Engine (Visual Scripting)",
   "description": "Visual Scripting support",
@@ -10,7 +10,7 @@
     "Visual"
   ],
   "unity": "2021.2",
-  "unityRelease": "5f1",
+  "unityRelease": "7f1",
   "dependencies": {
     "com.unity.visualscripting": "1.7.6"
   },
