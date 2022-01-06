@@ -46,8 +46,6 @@ namespace VisualPinball.Unity.VisualScripting
 		[PortLabel("Color Channel")]
 		public ValueInput ColorChannel;
 
-		private Player _player;
-
 		protected override void Definition()
 		{
 			InputTrigger = ControlInput(nameof(InputTrigger), Process);
@@ -55,7 +53,7 @@ namespace VisualPinball.Unity.VisualScripting
 
 			LampComponent = ValueInput<Object>(nameof(LampComponent), null);
 
-			Value = ValueInput<float>(nameof(Value), 0f);
+			Value = ValueInput(nameof(Value), 0f);
 			ColorChannel = ValueInput(nameof(ColorChannel), Engine.Math.ColorChannel.Alpha);
 
 			Requirement(LampComponent, InputTrigger);

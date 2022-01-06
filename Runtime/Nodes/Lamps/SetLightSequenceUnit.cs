@@ -56,7 +56,7 @@ namespace VisualPinball.Unity.VisualScripting
 			InputTrigger = ControlInput(nameof(InputTrigger), Process);
 			OutputTrigger = ControlOutput(nameof(OutputTrigger));
 
-			LightGroup = ValueInput<LightGroupComponent>(nameof(LightGroup));
+			LightGroup = ValueInput<LightGroupComponent>(nameof(LightGroup), null);
 
 			Value = ValueInput<float>(nameof(Value), 0);
 			ColorChannel = ValueInput(nameof(ColorChannel), Engine.Math.ColorChannel.Alpha);
