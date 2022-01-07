@@ -52,11 +52,13 @@ namespace VisualPinball.Unity.VisualScripting
 		public event EventHandler<CoilEventArgs> OnCoilChanged;
 		public event EventHandler<SwitchEventArgs2> OnSwitchChanged;
 
+		[NonSerialized] public BallManager BallManager;
 		[NonSerialized] private Player _player;
 
 		public void OnInit(Player player, TableApi tableApi, BallManager ballManager)
 		{
 			_player = player;
+			BallManager = ballManager;
 			EventBus.Trigger(VisualScriptingEventNames.PlayerStartedEvent, EventArgs.Empty);
 		}
 
