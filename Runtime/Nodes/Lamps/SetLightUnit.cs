@@ -1,5 +1,5 @@
 ﻿// Visual Pinball Engine
-// Copyright (C) 2021 freezy and VPE Team
+// Copyright (C) 2022 freezy and VPE Team
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ namespace VisualPinball.Unity.VisualScripting
 			InputTrigger = ControlInput(nameof(InputTrigger), Process);
 			OutputTrigger = ControlOutput(nameof(OutputTrigger));
 
-			LampComponent = ValueInput<Object>(nameof(LampComponent), null);
+			LampComponent = ValueInput<MonoBehaviour>(nameof(LampComponent), null);
 
 			Value = ValueInput(nameof(Value), 0f);
 			ColorChannel = ValueInput(nameof(ColorChannel), Engine.Math.ColorChannel.Alpha);
@@ -67,13 +67,16 @@ namespace VisualPinball.Unity.VisualScripting
 				return OutputTrigger;
 			}
 
-			var lamp = flow.GetValue<Object>(LampComponent) as ILampDeviceComponent;
-			var valueRaw = flow.GetValue<float>(Value);
-			var colorChannelRaw = flow.GetValue<ColorChannel>(ColorChannel);
+			if (flow.GetValue<MonoBehaviour>(LampComponent) is ILampDeviceComponent lamp) {
+				var valueRaw = flow.GetValue<float>(Value);
+				var colorChannelRaw = flow.GetValue<ColorChannel>(ColorChannel);
 
-			Player.Lamp(lamp).OnLamp(valueRaw, colorChannelRaw);
+				Player.Lamp(lamp)?.OnLamp(valueRaw, colorChannelRaw);
+			}
 
 			return OutputTrigger;
 		}
+
+
 	}
 }

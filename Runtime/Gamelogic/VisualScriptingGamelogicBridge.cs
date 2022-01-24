@@ -1,5 +1,5 @@
 ﻿// Visual Pinball Engine
-// Copyright (C) 2021 freezy and VPE Team
+// Copyright (C) 2022 freezy and VPE Team
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -44,12 +44,12 @@ namespace VisualPinball.Unity.VisualScripting
 			if (_gle != null) {
 				_gle.OnStarted += OnStarted;
 			}
-			else { 
+			else {
 				Debug.LogWarning("Cannot find gamelogic engine.");
 			}
 		}
 
-		private void OnDestroy() { 
+		private void OnDestroy() {
 			if (_gle != null) {
 				_gle.OnStarted -= OnStarted;
 
@@ -61,7 +61,7 @@ namespace VisualPinball.Unity.VisualScripting
 			}
 		}
 
-		private void OnStarted(object sender, EventArgs e) 
+		private void OnStarted(object sender, EventArgs e)
 		{
 			if (_gle != null) {
 				_gle.OnSwitchChanged += OnSwitchChanged;

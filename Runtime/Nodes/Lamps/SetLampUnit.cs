@@ -1,5 +1,5 @@
 ﻿// Visual Pinball Engine
-// Copyright (C) 2021 freezy and VPE Team
+// Copyright (C) 2022 freezy and VPE Team
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ namespace VisualPinball.Unity.VisualScripting
 
 			Requirement(Id, InputTrigger);
 			Succession(InputTrigger, OutputTrigger);
+
 		}
 
 		private ControlOutput Process(Flow flow)
@@ -64,7 +65,7 @@ namespace VisualPinball.Unity.VisualScripting
 			var id = flow.GetValue<string>(Id);
 			var value = flow.GetValue<float>(Value);
 
-			Gle.SetLamp(id, value);
+			Gle.SetLamp(id, value * 255f);
 
 			return OutputTrigger;
 		}
