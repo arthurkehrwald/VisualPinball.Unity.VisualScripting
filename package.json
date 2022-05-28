@@ -1,6 +1,6 @@
 {
   "name": "org.visualpinball.engine.unity.visualscripting",
-  "version": "0.0.1-preview.7",
+  "version": "0.0.1-preview.8",
   "displayName": "Visual Pinball Engine (Visual Scripting)",
   "description": "Visual Scripting support",
   "keywords": [
