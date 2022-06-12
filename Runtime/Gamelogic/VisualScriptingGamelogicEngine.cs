@@ -198,6 +198,15 @@ namespace VisualPinball.Unity.VisualScripting
 		{
 			#if UNITY_EDITOR
 
+			TableVariableDefinitions ??= new List<TableVariableDefinition>();
+			PlayerVariableDefinitions ??= new List<PlayerVariableDefinition>();
+			EventDefinitions ??= new List<EventDefinition>();
+			Displays ??= Array.Empty<DisplayDefinition>();
+			Switches ??= Array.Empty<VisualScriptingSwitch>();
+			Coils ??= Array.Empty<VisualScriptingCoil>();
+			Lamps ??= Array.Empty<VisualScriptingLamp>();
+			Wires ??= Array.Empty<GamelogicEngineWire>();
+
 			var ids = new HashSet<string>();
 			foreach (var def in PlayerVariableDefinitions) {
 				if (!def.HasId || ids.Contains(def.Id)) {
